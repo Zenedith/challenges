@@ -7,6 +7,11 @@ buildscript {
     }
 }
 
+
+plugins {
+    id 'org.sonarqube' version '2.2.1'
+}
+
 allprojects {
     apply plugin: 'java'
     apply plugin: 'groovy'
@@ -21,12 +26,53 @@ allprojects {
 
     ext {
         springBootVersion = '1.4.2.RELEASE'
+        jacksonVersion = '2.8.4'
+        spockVersion = '1.0-groovy-2.4'
+        dropwizardCoreVersion = '1.0.3'
+        cglibVersion = '3.2.4'
+        objenesisVersion = '2.4'
+        swaggerVersion = '2.6.1'
+        springVersion = '4.0.9.RELEASE'
     }
 
     test {
         testLogging {
             events "passed", "skipped", "failed"
         }
+    }
+
+    sourceSets {
+        integrationTest {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+        }
+    }
+    configurations {
+        integrationTestCompile.extendsFrom testCompile
+        integrationTestRuntime.extendsFrom testRuntime
+    }
+
+    task integrationTest(type: Test) {
+        testClassesDir = sourceSets.integrationTest.output.classesDir
+        classpath = sourceSets.integrationTest.runtimeClasspath
+
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    check {
+        dependsOn 'integrationTest'
+    }
+}
+
+subprojects {
+    apply plugin: 'findbugs'
+
+    dependencies {
+        compile "org.springframework.boot:spring-boot-starter-logging:${springBootVersion}"
+        testCompile "org.spockframework:spock-core:${spockVersion}"
+        testCompile "cglib:cglib-nodep:${cglibVersion}"
     }
 }
 

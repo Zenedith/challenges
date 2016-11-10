@@ -1,1 +1,13 @@
 server.port: 8088
+server.error.whitelabel.enabled: false
+
+importer:
+  validation:
+    stations: false
+  file:
+    filename: src/integrationTest/resources/example
+    watcher: true
+  limits:
+    routes: 100_000
+    stations: 1_000_000
+    stationsOnRoute: 1_001

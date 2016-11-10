@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':importer:core')
+    compile project(':storage:core')
+    compile "io.dropwizard:dropwizard-core:${dropwizardCoreVersion}"
+}

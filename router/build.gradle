@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':storage:core')
+    compile project(':storage:memory')
+}

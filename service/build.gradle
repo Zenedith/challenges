@@ -6,37 +6,22 @@ jar {
 }
 
 dependencies {
+    compile project(':api')
+    compile project(':router')
+    compile project(':importer:file')
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude module: 'spring-boot-starter-tomcat'
     }
     compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
 
+    //metrics
+    compile "io.dropwizard:dropwizard-core:${dropwizardCoreVersion}"
+
+    //swagger
+    compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+    compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-    testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
-}
-
-sourceSets {
-    integrationTest {
-        compileClasspath += main.output + test.output
-        runtimeClasspath += main.output + test.output
-    }
-}
-
-configurations {
-    integrationTestCompile.extendsFrom testCompile
-    integrationTestRuntime.extendsFrom testRuntime
-}
-
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
-
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
-
-check {
-    dependsOn 'integrationTest'
+    testCompile "org.spockframework:spock-spring:${spockVersion}"
 }

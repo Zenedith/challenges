@@ -1,12 +1,13 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+DATA_FILE=$2
+
 # Keep the pwd in mind!
 # Example: RUN="java -jar $DIR/target/magic.jar"
-RUN=
-NAME=
 
-DATA_FILE=$2
+RUN="java -Xmx4g -Xms768m -Xss512k -XX:+UseCompressedOops -Dimporter.file.watcher=true -Dimporter.file.filename=$DATA_FILE -jar $DIR/service/build/libs/BusRouteChallengeService-1.0.0.jar"
+NAME="BusRouteChallengeService"
 
 PIDFILE=/tmp/$NAME.pid
 LOGFILE=/tmp/$NAME.log
@@ -20,7 +21,7 @@ start() {
             rm -f $PIDFILE
         fi
     fi
-    local CMD="$RUN $DATA_FILE &> \"$LOGFILE\" & echo \$!"
+    local CMD="$RUN &> \"$LOGFILE\" & echo \$!"
     sh -c "$CMD" > $PIDFILE
 }
 

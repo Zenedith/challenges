@@ -1,0 +1,6 @@
+importer:
+  validation:
+    stations: true
+  file:
+    filename: src/integrationTest/resources/example
+    watcher: false

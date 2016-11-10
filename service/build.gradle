@@ -1,0 +1,42 @@
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'BusRouteChallengeService'
+    version = '1.0.0'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+check {
+    dependsOn 'integrationTest'
+}

@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    ext {
+        springBootVersion = '1.4.2.RELEASE'
+    }
+
+    test {
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}
+

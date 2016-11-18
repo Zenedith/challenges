@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':storage:core')
+    compile project(':importer:core')
+    compile "org.objenesis:objenesis:${objenesisVersion}"
+    compile "io.dropwizard:dropwizard-core:${dropwizardCoreVersion}"
+    compile "org.springframework:spring-context:${springVersion}"
+
+    testCompile project(':storage:memory')
+}

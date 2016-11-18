@@ -1,0 +1,3 @@
+rootProject.name = 'BusRouteChallenge'
+
+include 'storage:core', 'storage:memory', 'router', 'importer:core', 'importer:file', 'api', 'service'

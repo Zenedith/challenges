@@ -14,7 +14,7 @@ stations are connected by a bus route.
 
 ## Some of my assumptions:
 - routes can't have a loop (starting bus stop can't be the last one)
-- service is prepared for exchange storage and import components - is easy to change memory storage to eg. elastic search or changing plain text file importer to eg. json/xml
+- service is prepared for provide new storage and import components - is easy to change memory storage to eg. elastic search or changing plain text file importer to eg. json/xml
 
 ### Features:
 - java 8 + gradle + spring boot
@@ -23,7 +23,7 @@ stations are connected by a bus route.
 - easy configuration based on application.yaml file
 - additional REST API endpoints: `/api/imports` (information about imports and changes) and `/api/routes` (my routes API design)
 - swagger support: `/swagger-ui.html` (UI)
-- monitoring (default instance metrics + custom ones, mainly for importing process)
+- monitoring `/metrics` (default instance metrics + custom ones, mainly for importing process)
 
 ### Improvements:
 - memory & performance should be improved
